@@ -1,9 +1,10 @@
 package com.killer.drone.mappers;
 
 import com.killer.drone.domain.Drone;
+import com.killer.drone.enums.DroneState;
 import com.killer.drone.persistence.entities.DroneEntity;
 
-public class DroneMapper {
+public class DroneMapper implements IMapper<DroneInDTO, Drone>{
 
 	public static Drone entityToDomain(DroneEntity droneEntity) {
 		Drone drone = new Drone();
@@ -24,4 +25,17 @@ public class DroneMapper {
 		droneEntity.setState(drone.getState());
 		return droneEntity;
 	}
+
+	@Override
+	public Drone map(DroneInDTO in) {
+		Drone drone = new Drone();
+		drone.setSerialNumber(in.getSerialNumber());
+		drone.setModel(in.getModel());
+		drone.setBatteryCapacity(in.getBatteryCapacity());
+		drone.setWeightLimit(in.getWeightLimit());
+		drone.setState(DroneState.IDLE);
+		
+		return drone;
+	}
+	
 }
