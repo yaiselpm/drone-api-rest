@@ -1,8 +1,11 @@
 package com.killer.drone.mappers;
 
+import org.springframework.stereotype.Component;
+
 import com.killer.drone.domain.Medication;
 import com.killer.drone.persistence.entities.MedicationEntity;
 
+@Component
 public class MedicationMapper {
 	
 	public static Medication entityToDomain(MedicationEntity medicationEntity) {

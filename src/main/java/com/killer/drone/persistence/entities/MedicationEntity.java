@@ -36,6 +36,10 @@ public class MedicationEntity {
 	public void setImage(String image) {
 		this.image = image;
 	}
+	@Override
+	public String toString() {
+		return "MedicationEntity [code=" + code + ", name=" + name + ", weight=" + weight + ", image=" + image + "]";
+	}
 	
 
 }

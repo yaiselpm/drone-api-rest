@@ -58,13 +58,13 @@ public class Medication {
 	}
 	
 	public boolean validateName(String name) {
-		if (name.contains("-")|| name.contains("_")|| name.matches("[A-Z]*")|| name.matches("[0-9]*")) {
+		if (name.contains("-")|| name.contains("_")|| name.matches("[A-Z a-z]*")|| name.matches("[a-z]*")|| name.matches("[0-9]*")) {
 			return true;
 		}
 		return false;
 	}
 	public boolean validateCode(String code) {
-		if (name.contains("_")|| name.matches("[A-Z]*")|| name.matches("[0-9]*")) {
+		if (code.contains("_")|| code.matches("[A-Z]*")|| code.matches("[0-9]*")) {
 			return true;
 		}
 		return false;
