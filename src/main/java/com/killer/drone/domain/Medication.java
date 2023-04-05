@@ -2,6 +2,7 @@ package com.killer.drone.domain;
 
 public class Medication {
 	
+	Long id;
 	String code;
 	String name;
 	Double weight;
@@ -15,6 +16,14 @@ public class Medication {
 	}
 	
 	public Medication() {}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getCode() {
 		return code;
@@ -61,4 +70,10 @@ public class Medication {
 		return false;
 	}
 
+	@Override
+	public String toString() {
+		return "Medication [id=" + id + ", code=" + code + ", name=" + name + ", weight=" + weight + ", image=" + image
+				+ "]";
+	}
+	
 }

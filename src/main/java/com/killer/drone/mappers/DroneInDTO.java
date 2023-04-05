@@ -4,15 +4,15 @@ import com.killer.drone.enums.DroneModels;
 
 public class DroneInDTO {
 	
-	private Long serialNumber;
+	private String serialNumber;
 	private DroneModels model;
 	private Double weightLimit;
 	private Double batteryCapacity;
 	
-	public Long getSerialNumber() {
+	public String getSerialNumber() {
 		return serialNumber;
 	}
-	public void setSerialNumber(Long serialNumber) {
+	public void setSerialNumber(String serialNumber) {
 		this.serialNumber = serialNumber;
 	}
 	public DroneModels getModel() {

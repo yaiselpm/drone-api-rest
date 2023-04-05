@@ -1,6 +1,7 @@
 package com.killer.drone.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.killer.drone.domain.Drone;
 import com.killer.drone.domain.Medication;
-import com.killer.drone.enums.DroneState;
 import com.killer.drone.mappers.DroneInDTO;
+import com.killer.drone.persistence.entities.DroneEntity;
 import com.killer.drone.services.DroneService;
 
 @RestController
@@ -32,28 +33,28 @@ public class DispatchController {
 			return ResponseEntity.badRequest().body("The battery capacity can`t be more than 100%");
 		}
 		
-		droneService.registerADrone(drone);
-		return ResponseEntity.ok("Drone registered successfully"+ drone);
+		ResponseEntity<?> dE = droneService.registerADrone(drone);
+		return ResponseEntity.ok("Drone registered successfully "+ dE.getBody());
 	}
 	
-	@PostMapping
-	public ResponseEntity<Drone> loadingDroneWithMedication(Drone drone, List<Medication> medicationList){
-		
+	@PostMapping("/loadingDrone")
+	public ResponseEntity<?> loadingDroneWithMedication(@RequestBody Drone drone, List<Medication> medicationList){
+		return ResponseEntity.ok("");
 	}
 	
-	@GetMapping
-	public ResponseEntity<Drone> checkLoadedMedicationItemsForDrone(Drone drone){
-		
+	@GetMapping("/checkLoadedMedication")
+	public ResponseEntity<?> checkLoadedMedicationItemsForDrone(Drone drone){
+		return ResponseEntity.ok("");
 	}
 	
-	@GetMapping
-	public ResponseEntity<List<Drone>> checkAvaliableDroneForLoading(){
-		
-	}
+//	@GetMapping("/checkAvailableDrone")
+//	public ResponseEntity<List<Drone>> checkAvailableDroneForLoading(){
+//		return ResponseEntity.ok("");
+//	}
 	
-	@GetMapping
-	public ResponseEntity<Drone> checkBatteryForDrone(Drone drone){
-		
+	@GetMapping("/checkBatteryLevel")
+	public ResponseEntity<?> checkBatteryForDrone(Drone drone){
+		return ResponseEntity.ok("");
 	}
 	
 }

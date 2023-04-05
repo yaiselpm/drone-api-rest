@@ -1,13 +1,16 @@
 package com.killer.drone.mappers;
 
+import org.springframework.stereotype.Component;
+
 import com.killer.drone.domain.Drone;
 import com.killer.drone.enums.DroneState;
 import com.killer.drone.persistence.entities.DroneEntity;
-
+@Component
 public class DroneMapper implements IMapper<DroneInDTO, Drone>{
 
 	public static Drone entityToDomain(DroneEntity droneEntity) {
 		Drone drone = new Drone();
+		drone.setId(droneEntity.getId());
 		drone.setSerialNumber(droneEntity.getSerialNumber());
 		drone.setModel(droneEntity.getModel());
 		drone.setWeightLimit(droneEntity.getWeightLimit());
@@ -18,6 +21,7 @@ public class DroneMapper implements IMapper<DroneInDTO, Drone>{
 	
 	public static DroneEntity domainToEntity(Drone drone) {
 		DroneEntity droneEntity = new DroneEntity();
+		droneEntity.setId(drone.getId());
 		droneEntity.setSerialNumber(drone.getSerialNumber());
 		droneEntity.setModel(drone.getModel());
 		droneEntity.setWeightLimit(drone.getWeightLimit());
