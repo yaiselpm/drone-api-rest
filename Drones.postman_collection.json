@@ -1,0 +1,209 @@
+{
+	"info": {
+		"_postman_id": "41b37500-b3af-4abd-bfa8-233ae670ae7f",
+		"name": "Drones",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register Drone",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"serialNumber\":7686,\n    \"model\":\"Lightweight\",\n    \"weightLimit\": 500,\n    \"batteryCapacity\": 100\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/registerDrone",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"registerDrone"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Drone battery Level",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\":3\n    \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/checkBatteryLevel",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"checkBatteryLevel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "checkAvailableDrone",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/checkAvailableDrone",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"checkAvailableDrone"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register Medication",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"code\": \"A_3\", \"name\": \"Aspirin\",\"weight\":20}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/registerMedication",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"registerMedication"
+					],
+					"query": [
+						{
+							"key": "file",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Loading medication items to a drone",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"drone\":{\n    \"id\":6,\n    \"serialNumber\":7686,\n    \"model\":\"Lightweight\",\n    \"weightLimit\": 500,\n    \"batteryCapacity\": 100,\n    \"state\" :\"IDLE\"\n    },\n\"medicationList\":[\n    \n    {\n        \"code\":\"A_23\",\n        \"name\":\"aspirin\",\n        \"image\":null,\n        \"weight\":20\n    }\n    ]        \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/loadingDrone",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"loadingDrone"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "checkLoadedMedication",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\":6,\n    \"serialNumber\":7686,\n    \"model\":\"Lightweight\",\n    \"weightLimit\": 500,\n    \"batteryCapacity\": 100 \n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/checkLoadedMedication",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"checkLoadedMedication"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "imageToMedication",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"code\":\"AAA\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/imageToMedication",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"imageToMedication"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
