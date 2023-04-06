@@ -4,14 +4,17 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.util.StreamUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,6 +52,9 @@ public class DispatchController {
 	MedicationService medicationService;
  
 	private String picture;
+	
+	private static final Logger log = LoggerFactory.getLogger(DispatchController.class);
+	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 	
 	@PostMapping("/registerDrone")
 	public ResponseEntity<?> registerDrone(@RequestBody @Validated DroneInDTO drone){
@@ -120,10 +126,9 @@ public class DispatchController {
 	public List<DroneEntity> checkAvailableDroneForLoading(){
 		return droneService.getAllAvailableDrone();
 		
-	}
-	
+	}	
 	@GetMapping("/checkBatteryLevel")
-	public ResponseEntity<?> checkBatteryForDrone(@RequestBody Drone drone){
+	public ResponseEntity<?> checkBatteryForDrone(@RequestBody Drone drone){		
 		Drone droneaux = droneService.getDroneBatteryLevel(DroneMapper.domainToEntity(drone));
 		return ResponseEntity.ok(droneaux.getBatteryCapacity());
 	}
@@ -171,5 +176,12 @@ public class DispatchController {
 
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageBytes);
     }
-
+    
+    @Scheduled(fixedRate = 5000)
+	public void checkDronesBatteryLevel() {
+    	List<DroneEntity> dronesList = droneService.getAllDrone();
+    	for (DroneEntity droneEntity : dronesList) {		
+    		log.info("Checking drones Battery Level in "+ droneEntity, dateFormat.format(new Date()));    		
+		}
+	}
 }

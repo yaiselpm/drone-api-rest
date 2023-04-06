@@ -1,7 +1,6 @@
 package com.killer.drone.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -54,5 +53,7 @@ public class DroneService {
 		return droneRepository.checkAvailablesDroneForLoading();
 	}
 	
-	
+	public List<DroneEntity> getAllDrone(){
+		return droneRepository.findAll();
+	}	
 }
