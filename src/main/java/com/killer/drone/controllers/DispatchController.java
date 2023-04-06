@@ -171,7 +171,5 @@ public class DispatchController {
 
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageBytes);
     }
-//	Insert into drone_entity_medication_items (drone_entity_id,medication_items_code) values (1 , 'b')
-//	SELECT DISTINCT medication_entity.* FROM medication_entity, drone_entity_medication_items where drone_entity_medication_items.drone_entity_id = 1
 
 }
