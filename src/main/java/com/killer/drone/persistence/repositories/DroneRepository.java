@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.killer.drone.enums.DroneState;
 import com.killer.drone.persistence.entities.DroneEntity;
-import com.killer.drone.persistence.entities.MedicationEntity;
 
 public interface DroneRepository extends JpaRepository<DroneEntity, Long>{
 	
@@ -21,7 +20,7 @@ public interface DroneRepository extends JpaRepository<DroneEntity, Long>{
 	
 	@Modifying
 	@Query(value = "UPDATE drone_entity SET state = :state WHERE id =:id", nativeQuery = true)
-	public DroneEntity updateStateDrone(Long id, DroneState state);
+	public Integer updateStateDrone(Long id, DroneState state);
 	
 	
 }

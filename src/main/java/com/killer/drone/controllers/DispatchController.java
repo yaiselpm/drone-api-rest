@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +28,7 @@ import com.killer.drone.domain.Medication;
 import com.killer.drone.enums.DroneState;
 import com.killer.drone.mappers.DroneInDTO;
 import com.killer.drone.mappers.DroneMapper;
+import com.killer.drone.mappers.LoadingDroneObject;
 import com.killer.drone.mappers.MedicationMapper;
 import com.killer.drone.persistence.entities.DroneEntity;
 import com.killer.drone.persistence.entities.MedicationEntity;
@@ -61,7 +63,9 @@ public class DispatchController {
 	}
 	
 	@PostMapping("/loadingDrone")
-	public ResponseEntity<?> loadingDroneWithMedication(@RequestBody Drone drone, List<Medication> medicationList){
+	public ResponseEntity<?> loadingDroneWithMedication( @RequestBody @Validated LoadingDroneObject loadingDroneObject){
+		Drone drone = loadingDroneObject.getDrone();
+		List<Medication> medicationList = loadingDroneObject.getMedicationList();
 		
 		if (!droneService.checkIfExist(DroneMapper.domainToEntity(drone))) {
 			return (ResponseEntity<?>) ResponseEntity.badRequest().body("Drone not exist");
@@ -69,7 +73,6 @@ public class DispatchController {
 		Drone droneAux = droneService.getDroneBatteryLevel(DroneMapper.domainToEntity(drone));
 		Double batteryLevel = droneAux.getBatteryCapacity();
 		DroneState state = droneAux.getState();
-		
 		if (batteryLevel<25 || state!=DroneState.IDLE) {
 			return (ResponseEntity<?>) ResponseEntity.badRequest().body("Drone can't be load because is in use or the battery level is lower 25");
 		}
@@ -77,7 +80,7 @@ public class DispatchController {
 		
 		for (Medication medication : medicationList) {
 			if (!medicationService.checkIfExist(MedicationMapper.domainToEntity(medication))) {
-				return (ResponseEntity<?>) ResponseEntity.badRequest().body("The medication item can't be load because it don't exist. Check the list again");
+				return (ResponseEntity<?>) ResponseEntity.badRequest().body("The medication item can't be load because it don't exist. Check the list again "+ medication);
 			}
 			sum+=medication.getWeight();
 		}
@@ -85,11 +88,12 @@ public class DispatchController {
 		if (droneAux.getWeightLimit()<sum) {
 			return (ResponseEntity<?>) ResponseEntity.badRequest().body("Drone can't be load because the weight of charge is more that it can carry");
 		}
-		droneAux.setState(DroneState.LOADING);
+		droneAux.setState(DroneState.LOADING);		
 		droneService.updateDroneState(DroneMapper.domainToEntity(droneAux));
+		
 		medicationService.saveMedicationToDroneRelationship(droneAux.getId(), medicationList);
 		droneAux.setState(DroneState.LOADED);
-		droneService.updateDroneState(DroneMapper.domainToEntity(droneAux));
+		droneService.updateDroneState(DroneMapper.domainToEntity(droneAux));		
 		return ResponseEntity.ok("The Drone was loaded successfully");
 	}
 	

@@ -16,6 +16,7 @@ public class DroneMapper implements IMapper<DroneInDTO, Drone>{
 		drone.setWeightLimit(droneEntity.getWeightLimit());
 		drone.setBatteryCapacity(droneEntity.getBatteryCapacity());
 		drone.setState(droneEntity.getState());
+		System.out.println(drone);
 		return drone;
 	}
 	
@@ -27,6 +28,7 @@ public class DroneMapper implements IMapper<DroneInDTO, Drone>{
 		droneEntity.setWeightLimit(drone.getWeightLimit());
 		droneEntity.setBatteryCapacity(drone.getBatteryCapacity());
 		droneEntity.setState(drone.getState());
+		System.out.println(droneEntity);
 		return droneEntity;
 	}
 

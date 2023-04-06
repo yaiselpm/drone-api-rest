@@ -1,6 +1,7 @@
 package com.killer.drone.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -11,7 +12,6 @@ import com.killer.drone.domain.Drone;
 import com.killer.drone.mappers.DroneInDTO;
 import com.killer.drone.mappers.DroneMapper;
 import com.killer.drone.persistence.entities.DroneEntity;
-import com.killer.drone.persistence.entities.MedicationEntity;
 import com.killer.drone.persistence.repositories.DroneRepository;
 
 @Service
@@ -32,10 +32,12 @@ public class DroneService {
 		return ResponseEntity.ok(DroneMapper.entityToDomain(dE));
 	}
 	
-	public Drone getDroneBatteryLevel(DroneEntity drone) {
-		return droneRepository.findById(drone.getId())
+	public Drone getDroneBatteryLevel(DroneEntity droneEntity) {
+		System.out.println("asdsa");
+		Drone dron=droneRepository.findById(droneEntity.getId())
 				.map(DroneMapper::entityToDomain)
 				.orElseThrow();
+		return dron;
 	}
 	
 	public boolean checkIfExist(DroneEntity drone) {
@@ -44,8 +46,8 @@ public class DroneService {
 	
 	@Transactional
 	public ResponseEntity<?> updateDroneState(DroneEntity droneEntity){
-		DroneEntity droneaux = droneRepository.updateStateDrone(droneEntity.getId(), droneEntity.getState());
-		return ResponseEntity.ok(DroneMapper.entityToDomain(droneaux));		
+		droneRepository.saveAndFlush(droneEntity);
+		return ResponseEntity.ok("Updated successfully");		
 	}
 	
 	public List<DroneEntity> getAllAvailableDrone(){

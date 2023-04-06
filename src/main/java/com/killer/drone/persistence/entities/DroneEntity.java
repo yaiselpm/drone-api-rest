@@ -78,6 +78,12 @@ public class DroneEntity {
 	public void setState(DroneState state) {
 		this.state = state;
 	}
+
+	@Override
+	public String toString() {
+		return "DroneEntity [id=" + id + ", serialNumber=" + serialNumber + ", model=" + model + ", weightLimit="
+				+ weightLimit + ", batteryCapacity=" + batteryCapacity + ", state=" + state + "]";
+	}
 	
 	
 }

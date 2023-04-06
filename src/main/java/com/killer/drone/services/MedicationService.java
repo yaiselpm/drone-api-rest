@@ -36,6 +36,7 @@ public class MedicationService {
 		MedicationEntity medicationEntity =  medicationRespository.getReferenceById(code);
 		return MedicationMapper.entityToDomain(medicationEntity);
 	}
+	@Transactional
 	public ResponseEntity<?> saveMedicationToDroneRelationship(Long id, List<Medication> medicationList){
 		for (Medication medicationEntity : medicationList) {
 			medicationRespository.saveMedicationToDroneRelationship(id, medicationEntity.getCode());
