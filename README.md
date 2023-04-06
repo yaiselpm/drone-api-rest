@@ -1,5 +1,5 @@
 # drone-api-rest
-##This an Application made in Spring Boot using Java 17.
+##This is an Application made in Spring Boot using Java 17, and postgres as DBMS.
 ### You can run the application from the command line with Gradle or Maven. You can also an executable JAR file that contains all the necesary dependencies, classes, and resources and run that. Building an executable jar makes it easy to ship, version, and deploy the service as an application throughout the development lifecycle, across different environments, and so forth.
 
 
@@ -20,3 +20,4 @@
 
 	java -jar target/gs-scheduling-tasks-0.1.0.jar
  
+## In the root application folder there is a file Drones.postman_collection.json to test the application in Postman.
